@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/mirovit/ionic-platform-sdk.svg?branch=master)](https://travis-ci.org/mirovit/ionic-platform-sdk)
+[![Code Climate](https://codeclimate.com/github/mirovit/ionic-platform-sdk/badges/gpa.svg)](https://codeclimate.com/github/mirovit/ionic-platform-sdk)
+[![Test Coverage](https://codeclimate.com/github/mirovit/ionic-platform-sdk/badges/coverage.svg)](https://codeclimate.com/github/mirovit/ionic-platform-sdk/coverage)
+
 # Ionic Platform API SDK
 
 So a bit of an explanation. There is an API to the services that the Ionic Platform provides and this is a simple PHP wrapper that you can use.
