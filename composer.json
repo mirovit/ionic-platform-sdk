@@ -1,0 +1,25 @@
+{
+    "name": "mirovit/ionic-platform-sdk",
+    "description": "PHP Wrapper for using the Ionic Platform API.",
+    "require": {
+        "php": ">=5.5.0",
+        "guzzlehttp/guzzle": "6.2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "codeclimate/php-test-reporter": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miroslav Vitanov",
+            "email": "mvvitanov@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Mirovit\\IonicPlatformSDK\\": "src/"
+        }
+    }
+}
