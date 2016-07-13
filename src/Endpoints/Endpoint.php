@@ -25,12 +25,13 @@ abstract class Endpoint
      * 
      * @param ResponseInterface $response
      * @return array
+     * @codeCoverageIgnore
      */
     public function response(ResponseInterface $response)
     {
         $json = $response->getBody()->getContents();
         $toArray = json_decode($json, true);
-        
+
         return new Response($toArray);
     }
 
