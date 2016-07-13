@@ -3,6 +3,7 @@
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
 use GuzzleHttp\Client;
+use Mirovit\IonicPlatformSDK\Response\Response;
 use Mirovit\IonicPlatformSDK\Validators\Validator;
 use Psr\Http\Message\ResponseInterface;
 
@@ -27,7 +28,10 @@ abstract class Endpoint
      */
     public function response(ResponseInterface $response)
     {
-        return json_decode($response->getBody()->getContents(), true);
+        $json = $response->getBody()->getContents();
+        $toArray = json_decode($json, true);
+        
+        return new Response($toArray);
     }
 
     /**
