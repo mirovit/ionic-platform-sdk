@@ -24,10 +24,10 @@ abstract class Endpoint
      * Parse the response from the API.
      * 
      * @param ResponseInterface $response
-     * @return array
+     * @return Response
      * @codeCoverageIgnore
      */
-    public function response(ResponseInterface $response)
+    public function toResponse(ResponseInterface $response)
     {
         $json = $response->getBody()->getContents();
         $toArray = json_decode($json, true);

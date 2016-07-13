@@ -3,39 +3,40 @@
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
 use Mirovit\IonicPlatformSDK\Exceptions\MissingArgumentException;
+use Mirovit\IonicPlatformSDK\Response\Response;
 
 class UsersEndpoint extends Endpoint
 {
     /**
      * Get all registered users.
      * 
-     * @return array
+     * @return Response
      */
     public function all()
     {
         $response = $this->client->get($this->getEndpoint());
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
      * Get a user by id.
      *
      * @param $uuid
-     * @return array
+     * @return Response
      * @throws \Exception
      */
     public function get($uuid)
     {
         $response = $this->client->get($this->getEndpoint() . "/{$uuid}");
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
      * Get the current user.
      *
-     * @return array
+     * @return Response
      */
     public function self()
     {
@@ -45,7 +46,7 @@ class UsersEndpoint extends Endpoint
             ],
         ]);
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
@@ -54,7 +55,7 @@ class UsersEndpoint extends Endpoint
      * Required fields: app_id, email, password.
      *
      * @param array $data
-     * @return array
+     * @return Response
      */
     public function create(array $data)
     {
@@ -69,7 +70,7 @@ class UsersEndpoint extends Endpoint
             ],
         ]);
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
@@ -78,7 +79,7 @@ class UsersEndpoint extends Endpoint
      * You should include the uuid in the array of data.
      *
      * @param array $data
-     * @return array
+     * @return Response
      */
     public function update(array $data)
     {
@@ -96,14 +97,14 @@ class UsersEndpoint extends Endpoint
             ]
         );
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
      * Delete a user.
      *
      * @param $uuid
-     * @return null
+     * @return Response
      */
     public function destroy($uuid)
     {
@@ -116,14 +117,14 @@ class UsersEndpoint extends Endpoint
             ]
         );
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
      * Get the custom attributes for a user.
      *
      * @param $uuid
-     * @return array
+     * @return Response
      */
     public function getCustom($uuid)
     {
@@ -136,7 +137,7 @@ class UsersEndpoint extends Endpoint
             ]
         );
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
@@ -145,7 +146,7 @@ class UsersEndpoint extends Endpoint
      * Note: It will override any existing data.
      *
      * @param array $data
-     * @return array
+     * @return Response
      */
     public function setCustom(array $data)
     {
@@ -166,7 +167,7 @@ class UsersEndpoint extends Endpoint
             ]
         );
 
-        return $this->response($response);
+        return $this->toResponse($response);
     }
 
     /**
@@ -188,8 +189,8 @@ class UsersEndpoint extends Endpoint
             ]
         );
 
-        $response = $this->response($response);
+        $response = $this->toResponse($response);
 
-        return is_array($response) && array_get($response, 'data.status') === 'sent';
+        return $response->isSuccessful() && $response->data()->get('status') === 'sent';
     }
 }
