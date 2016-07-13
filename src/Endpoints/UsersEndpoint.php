@@ -28,7 +28,7 @@ class UsersEndpoint extends Endpoint
      */
     public function get($uuid)
     {
-        $response = $this->client->get($this->getEndpoint() . "/{$uuid}");
+        $response = $this->client->get("{$this->getEndpoint()}/{$uuid}");
 
         return $this->toResponse($response);
     }
@@ -40,11 +40,7 @@ class UsersEndpoint extends Endpoint
      */
     public function self()
     {
-        $response = $this->client->get($this->getEndpoint() . '/self', [
-            'headers'   => [
-                'Content-Type'  => 'application/json',
-            ],
-        ]);
+        $response = $this->client->get("{$this->getEndpoint()}/self");
 
         return $this->toResponse($response);
     }
@@ -65,9 +61,6 @@ class UsersEndpoint extends Endpoint
         
         $response = $this->client->post($this->getEndpoint(), [
             'body' => json_encode($data),
-            'headers'   => [
-                'Content-Type'  => 'application/json',
-            ],
         ]);
 
         return $this->toResponse($response);
@@ -91,9 +84,6 @@ class UsersEndpoint extends Endpoint
             $this->getEndpoint() . "/{$data['uuid']}",
             [
                 'body' => json_encode($data),
-                'headers'   => [
-                    'Content-Type'  => 'application/json',
-                ],
             ]
         );
 
@@ -108,14 +98,7 @@ class UsersEndpoint extends Endpoint
      */
     public function destroy($uuid)
     {
-        $response = $this->client->delete(
-            $this->getEndpoint() . "/{$uuid}",
-            [
-                'headers'   => [
-                    'Content-Type'  => 'application/json',
-                ],
-            ]
-        );
+        $response = $this->client->delete("{$this->getEndpoint()}/{$uuid}");
 
         return $this->toResponse($response);
     }
@@ -128,14 +111,7 @@ class UsersEndpoint extends Endpoint
      */
     public function getCustom($uuid)
     {
-        $response = $this->client->get(
-            $this->getEndpoint() . "/{$uuid}/custom",
-            [
-                'headers'   => [
-                    'Content-Type'  => 'application/json',
-                ],
-            ]
-        );
+        $response = $this->client->get("{$this->getEndpoint()}/{$uuid}/custom");
 
         return $this->toResponse($response);
     }
@@ -158,12 +134,9 @@ class UsersEndpoint extends Endpoint
         unset($data['uuid']);
 
         $response = $this->client->put(
-            $this->getEndpoint() . "/{$uuid}/custom",
+            "{$this->getEndpoint()}/{$uuid}/custom",
             [
                 'body' => json_encode($data),
-                'headers'   => [
-                    'Content-Type'  => 'application/json',
-                ],
             ]
         );
 
@@ -180,14 +153,7 @@ class UsersEndpoint extends Endpoint
      */
     public function passwordReset($uuid)
     {
-        $response = $this->client->post(
-            $this->getEndpoint() . "/{$uuid}/password-reset",
-            [
-                'headers'   => [
-                    'Content-Type'  => 'application/json',
-                ],
-            ]
-        );
+        $response = $this->client->post("{$this->getEndpoint()}/{$uuid}/password-reset");
 
         $response = $this->toResponse($response);
 
