@@ -44,4 +44,10 @@ class IonicPlatformSDKTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(method_exists($this->sdk, 'deploy'));
         $this->assertInstanceOf(\Mirovit\IonicPlatformSDK\Endpoints\DeployEndpoint::class, $this->sdk->deploy());
     }
+
+    /** @test */
+    public function it_has_a_validator_instance()
+    {
+        $this->assertInstanceOf(\Mirovit\IonicPlatformSDK\Validators\Validator::class, $this->sdk->validation());
+    }
 }

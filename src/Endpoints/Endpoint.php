@@ -95,7 +95,7 @@ abstract class Endpoint
      *
      * @return Validator
      */
-    protected function validation()
+    public function validation()
     {
         return new Validator;
     }
