@@ -3,6 +3,7 @@
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
 use GuzzleHttp\Client;
+use Mirovit\IonicPlatformSDK\Validators\Validator;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class Endpoint
@@ -85,19 +86,12 @@ abstract class Endpoint
     }
 
     /**
-     * Simple validation multiple key existence in an array.
+     * Simple interface for validation.
      *
-     * @param array $shouldHave
-     * @param array $has
-     * @return bool
+     * @return Validator
      */
-    public function hasKeys(array $shouldHave, array $has)
+    protected function validation()
     {
-        $required = array_intersect_key(
-            array_flip($shouldHave),
-            $has
-        );
-
-        return count($has) >= count($required);
+        return new Validator;
     }
 }

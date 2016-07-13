@@ -58,7 +58,7 @@ class UsersEndpoint extends Endpoint
      */
     public function create(array $data)
     {
-        if(!$this->hasKeys(['app_id', 'email', 'password'], $data)) {
+        if(!$this->validation()->hasKeys(['app_id', 'email', 'password'], $data)) {
             throw new MissingArgumentException('To create a user you need to pass at least the app_id, email and password');
         }
         
@@ -82,7 +82,7 @@ class UsersEndpoint extends Endpoint
      */
     public function update(array $data)
     {
-        if(!$this->hasKeys(['uuid'], $data)) {
+        if(!$this->validation()->hasKeys(['uuid'], $data)) {
             throw new MissingArgumentException('You must pass the uuid when updating a user.');
         }
 
@@ -149,7 +149,7 @@ class UsersEndpoint extends Endpoint
      */
     public function setCustom(array $data)
     {
-        if(!$this->hasKeys(['uuid'], $data)) {
+        if(!$this->validation()->hasKeys(['uuid'], $data)) {
             throw new MissingArgumentException('You must pass the uuid when updating user\'s custom fields.');
         }
 
