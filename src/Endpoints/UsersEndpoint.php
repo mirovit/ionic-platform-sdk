@@ -13,7 +13,7 @@ class UsersEndpoint extends Endpoint
      */
     public function all()
     {
-        $response = $this->client->get($this->endpoint);
+        $response = $this->client->get($this->getEndpoint());
 
         return $this->response($response);
     }
@@ -27,7 +27,7 @@ class UsersEndpoint extends Endpoint
      */
     public function get($uuid)
     {
-        $response = $this->client->get($this->endpoint . "/{$uuid}");
+        $response = $this->client->get($this->getEndpoint() . "/{$uuid}");
 
         return $this->response($response);
     }
@@ -39,7 +39,7 @@ class UsersEndpoint extends Endpoint
      */
     public function self()
     {
-        $response = $this->client->get($this->endpoint . '/self', [
+        $response = $this->client->get($this->getEndpoint() . '/self', [
             'headers'   => [
                 'Content-Type'  => 'application/json',
             ],
@@ -62,7 +62,7 @@ class UsersEndpoint extends Endpoint
             throw new MissingArgumentException('To create a user you need to pass at least the app_id, email and password');
         }
         
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpoint(), [
             'body' => json_encode($data),
             'headers'   => [
                 'Content-Type'  => 'application/json',
@@ -87,7 +87,7 @@ class UsersEndpoint extends Endpoint
         }
 
         $response = $this->client->patch(
-            $this->endpoint . "/{$data['uuid']}",
+            $this->getEndpoint() . "/{$data['uuid']}",
             [
                 'body' => json_encode($data),
                 'headers'   => [
@@ -108,7 +108,7 @@ class UsersEndpoint extends Endpoint
     public function destroy($uuid)
     {
         $response = $this->client->delete(
-            $this->endpoint . "/{$uuid}",
+            $this->getEndpoint() . "/{$uuid}",
             [
                 'headers'   => [
                     'Content-Type'  => 'application/json',
@@ -128,7 +128,7 @@ class UsersEndpoint extends Endpoint
     public function getCustom($uuid)
     {
         $response = $this->client->get(
-            $this->endpoint . "/{$uuid}/custom",
+            $this->getEndpoint() . "/{$uuid}/custom",
             [
                 'headers'   => [
                     'Content-Type'  => 'application/json',
@@ -157,7 +157,7 @@ class UsersEndpoint extends Endpoint
         unset($data['uuid']);
 
         $response = $this->client->put(
-            $this->endpoint . "/{$uuid}/custom",
+            $this->getEndpoint() . "/{$uuid}/custom",
             [
                 'body' => json_encode($data),
                 'headers'   => [
@@ -180,7 +180,7 @@ class UsersEndpoint extends Endpoint
     public function passwordReset($uuid)
     {
         $response = $this->client->post(
-            $this->endpoint . "/{$uuid}/password-reset",
+            $this->getEndpoint() . "/{$uuid}/password-reset",
             [
                 'headers'   => [
                     'Content-Type'  => 'application/json',
