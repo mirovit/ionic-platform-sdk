@@ -3,9 +3,10 @@
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
 use GuzzleHttp\Client;
+use Mirovit\IonicPlatformSDK\Exceptions\MissingArgumentException;
 use Mirovit\IonicPlatformSDK\Response\Response;
 use Mirovit\IonicPlatformSDK\Validators\Validator;
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\MessageInterface;
 
 abstract class Endpoint
 {
@@ -23,11 +24,11 @@ abstract class Endpoint
     /**
      * Parse the response from the API.
      * 
-     * @param ResponseInterface $response
+     * @param MessageInterface $response
      * @return Response
      * @codeCoverageIgnore
      */
-    public function toResponse(ResponseInterface $response)
+    public function toResponse(MessageInterface $response)
     {
         $json = $response->getBody()->getContents();
         $toArray = json_decode($json, true);
