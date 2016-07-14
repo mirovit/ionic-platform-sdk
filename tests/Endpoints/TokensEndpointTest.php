@@ -46,4 +46,28 @@ class TokensEndpointTest extends AbstractEndpointTest
             $tokens->changeStatus($status['token_id'], $status['valid'])
         );
     }
+    
+    /** @test */
+    public function it_saves_a_token()
+    {
+        $data = [
+            'token'     => 'fake-token-string',
+            'user_id'   => 'fake-uuid',
+        ];
+
+        $this->client
+            ->post("{$this->endpoint}/tokens", ['body' => json_encode($data)])
+            ->shouldBeCalled()
+            ->willReturn($this->successResponse->reveal());
+
+        $tokens = new TokensEndpoint(
+            $this->client->reveal(),
+            $this->endpoint
+        );
+
+        $this->assertInstanceOf(
+            Response::class,
+            $tokens->save($data['token'], $data['user_id'])
+        );
+    }
 }
