@@ -2,36 +2,21 @@
 
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\CreatesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\UpdatesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\FetchesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\DeletesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\ListsResource;
 use Mirovit\IonicPlatformSDK\Exceptions\MissingArgumentException;
 use Mirovit\IonicPlatformSDK\Response\Response;
 
 class UsersEndpoint extends Endpoint
 {
-    /**
-     * Get all registered users.
-     * 
-     * @return Response
-     */
-    public function all()
-    {
-        $response = $this->client->get($this->getEndpoint());
-
-        return $this->toResponse($response);
-    }
-
-    /**
-     * Get a user by id.
-     *
-     * @param $uuid
-     * @return Response
-     * @throws \Exception
-     */
-    public function get($uuid)
-    {
-        $response = $this->client->get("{$this->getEndpoint()}/{$uuid}");
-
-        return $this->toResponse($response);
-    }
+    use CreatesResource,
+        UpdatesResource,
+        FetchesResource,
+        DeletesResource,
+        ListsResource;
 
     /**
      * Get the current user.
@@ -41,64 +26,6 @@ class UsersEndpoint extends Endpoint
     public function self()
     {
         $response = $this->client->get("{$this->getEndpoint()}/self");
-
-        return $this->toResponse($response);
-    }
-
-    /**
-     * Creates a new user in an app.
-     *
-     * Required fields: app_id, email, password.
-     *
-     * @param array $data
-     * @return Response
-     */
-    public function create(array $data)
-    {
-        if(!$this->validation()->hasKeys(['app_id', 'email', 'password'], $data)) {
-            throw new MissingArgumentException('To create a user you need to pass at least the app_id, email and password');
-        }
-        
-        $response = $this->client->post($this->getEndpoint(), [
-            'body' => json_encode($data),
-        ]);
-
-        return $this->toResponse($response);
-    }
-
-    /**
-     * Update a user.
-     *
-     * You should include the uuid in the array of data.
-     *
-     * @param array $data
-     * @return Response
-     */
-    public function update(array $data)
-    {
-        if(!$this->validation()->hasKeys(['uuid'], $data)) {
-            throw new MissingArgumentException('You must pass the uuid when updating a user.');
-        }
-
-        $response = $this->client->patch(
-            $this->getEndpoint() . "/{$data['uuid']}",
-            [
-                'body' => json_encode($data),
-            ]
-        );
-
-        return $this->toResponse($response);
-    }
-
-    /**
-     * Delete a user.
-     *
-     * @param $uuid
-     * @return Response
-     */
-    public function destroy($uuid)
-    {
-        $response = $this->client->delete("{$this->getEndpoint()}/{$uuid}");
 
         return $this->toResponse($response);
     }
@@ -158,5 +85,32 @@ class UsersEndpoint extends Endpoint
         $response = $this->toResponse($response);
 
         return $response->isSuccessful() && $response->data()->get('status') === 'sent';
+    }
+
+
+    /**
+     * Required fields: app_id, email, password.
+     *
+     * @param array $data
+     * @throws MissingArgumentException
+     */
+    protected function validateCreate(array $data)
+    {
+        if(!$this->validation()->hasKeys(['app_id', 'email', 'password'], $data)) {
+            throw new MissingArgumentException('To create a user you need to pass at least the app_id, email and password');
+        }
+    }
+
+    /**
+     * Required fields: uuid.
+     *
+     * @param array $data
+     * @throws MissingArgumentException
+     */
+    protected function validateUpdate(array $data)
+    {
+        if(!$this->validation()->hasKeys(['uuid'], $data)) {
+            throw new MissingArgumentException('You must pass the uuid when updating a user.');
+        }
     }
 }

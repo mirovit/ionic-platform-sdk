@@ -2,18 +2,28 @@
 
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\DeletesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\ListsResource;
+use Mirovit\IonicPlatformSDK\Response\Response;
 
 class DeploysEndpoint extends Endpoint
 {
-    public function all()
-    {
-    }
+    use DeletesResource,
+        ListsResource;
 
+    /**
+     * @param $channel
+     * @param $snapshot
+     * @return Response
+     */
     public function set($channel, $snapshot)
     {
-    }
+        $data = compact('channel', 'snapshot');
 
-    public function destroy($uuid)
-    {
+        $response = $this->client->post($this->getEndpoint(), [
+            'body' => json_encode($data),
+        ]);
+
+        return $this->toResponse($response);
     }
 }

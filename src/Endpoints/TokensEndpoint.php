@@ -2,36 +2,60 @@
 
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\DeletesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\FetchesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\ListsResource;
+use Mirovit\IonicPlatformSDK\Response\Response;
 
 class TokensEndpoint extends Endpoint
 {
-    public function all()
+    use DeletesResource,
+        FetchesResource,
+        ListsResource;
+
+    /**
+     * @param $token
+     * @param $userId
+     * @return Response
+     */
+    public function save($token, $userId)
     {
+        $data = [
+            'token'     => $token,
+            'user_id'   => $userId,
+        ];
+
+        $response = $this->client->post($this->getEndpoint(), [
+            'body' => json_encode($data),
+        ]);
+
+        return $this->toResponse($response);
     }
 
-    public function get($token_id)
+    public function changeStatus($tokenId, $status)
     {
+        $data = [
+            'token_id'  => $tokenId,
+            'valid'     => $status,
+        ];
+
+        $response = $this->client->patch(
+            "{$this->getEndpoint()}/{$tokenId}",
+            [
+                'body' => json_encode($data),
+            ]
+        );
+
+        return $this->toResponse($response);
     }
 
-    public function save($token, $user_id)
+    public function validate($tokenId)
     {
+        return $this->changeStatus($tokenId, true);
     }
 
-    public function changeStatus($token_id, $status)
+    public function invalidate($tokenId)
     {
-    }
-
-    public function validate($token_id)
-    {
-        return $this->changeStatus($token_id, true);
-    }
-
-    public function invalidate($token_id)
-    {
-        return $this->changeStatus($token_id, false);
-    }
-
-    public function destroy($token_id)
-    {
+        return $this->changeStatus($tokenId, false);
     }
 }

@@ -2,18 +2,25 @@
 
 namespace Mirovit\IonicPlatformSDK\Endpoints;
 
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\UpdatesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\FetchesResource;
+use Mirovit\IonicPlatformSDK\Endpoints\Traits\ListsResource;
+use Mirovit\IonicPlatformSDK\Exceptions\MissingArgumentException;
 
 class SnapshotsEndpoint extends Endpoint
 {
-    public function all()
-    {
-    }
+    use UpdatesResource,
+        FetchesResource,
+        ListsResource;
 
-    public function get($uuid)
+    /**
+     * @param array $data
+     * @throws MissingArgumentException
+     */
+    protected function validateUpdate(array $data)
     {
-    }
-
-    public function update(array $data)
-    {
+        if(!$this->validation()->hasKeys(['uuid'], $data)) {
+            throw new MissingArgumentException('You need to give the snapshot uuid.');
+        }
     }
 }
