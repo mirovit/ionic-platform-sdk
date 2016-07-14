@@ -2,15 +2,8 @@
 
 namespace Mirovit\IonicPlatformSDK\Response;
 
-class Response
+class Response extends Responder
 {
-    use Responder;
-
-    /**
-     * @var array
-     */
-    protected $response = [];
-
     /**
      * @var ResponseMeta
      */
@@ -26,9 +19,9 @@ class Response
      */
     protected $error;
 
-    public function __construct(array $endpointResponse)
+    public function __construct(array $response)
     {
-        $this->response = $endpointResponse;
+        parent::__construct($response);
         $this->fill();
     }
 

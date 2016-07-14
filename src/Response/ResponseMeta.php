@@ -3,20 +3,8 @@
 namespace Mirovit\IonicPlatformSDK\Response;
 
 
-class ResponseMeta
+class ResponseMeta extends Responder
 {
-    use Responder;
-
-    /**
-     * @var array
-     */
-    protected $response;
-
-    public function __construct(array $response)
-    {
-        $this->response = $response;
-    }
-
     /**
      * Whether the request returned a response
      * within 2xx range.

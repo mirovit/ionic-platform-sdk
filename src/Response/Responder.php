@@ -2,8 +2,18 @@
 
 namespace Mirovit\IonicPlatformSDK\Response;
 
-trait Responder
+abstract class Responder
 {
+    /**
+     * @var array
+     */
+    protected $response = [];
+
+    public function __construct(array $response)
+    {
+        $this->response = $response;
+    }
+
     public function has($key)
     {
         return array_key_exists($key, $this->response);
