@@ -1,12 +1,16 @@
 <?php
 
-class ValidatorTest extends PHPUnit_Framework_TestCase
+namespace Mirovit\IonicPlatformSDK\Tests;
+
+use Mirovit\IonicPlatformSDK\Validators\Validator;
+
+class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
     private $validator;
 
     public function setUp()
     {
-        $this->validator = new \Mirovit\IonicPlatformSDK\Validators\Validator;
+        $this->validator = new Validator;
     }
     /** @test */
     public function it_fails_to_validate_when_the_validator_does_not_exist()

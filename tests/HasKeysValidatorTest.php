@@ -1,8 +1,10 @@
 <?php
 
+namespace Mirovit\IonicPlatformSDK\Tests;
+
 use Mirovit\IonicPlatformSDK\Validators\HasKeys;
 
-class HasKeysValidatorTest extends PHPUnit_Framework_TestCase
+class HasKeysValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_validates_an_array_with_equal_key_size()

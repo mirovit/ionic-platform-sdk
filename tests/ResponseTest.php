@@ -1,8 +1,13 @@
 <?php
 
-use Mirovit\IonicPlatformSDK\Response\Response;
+namespace Mirovit\IonicPlatformSDK\Tests;
 
-class ResponseTest extends PHPUnit_Framework_TestCase
+use Mirovit\IonicPlatformSDK\Response\Response;
+use Mirovit\IonicPlatformSDK\Response\ResponseData;
+use Mirovit\IonicPlatformSDK\Response\ResponseError;
+use Mirovit\IonicPlatformSDK\Response\ResponseMeta;
+
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
     protected $successResponse = [];
     protected $errorResponse = [];
@@ -81,7 +86,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $response = new Response($this->successResponse);
 
-        $this->assertInstanceOf(\Mirovit\IonicPlatformSDK\Response\ResponseMeta::class, $response->meta());
+        $this->assertInstanceOf(ResponseMeta::class, $response->meta());
     }
 
     /** @test */
@@ -89,7 +94,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $response = new Response($this->successResponse);
 
-        $this->assertInstanceOf(\Mirovit\IonicPlatformSDK\Response\ResponseData::class, $response->data());
+        $this->assertInstanceOf(ResponseData::class, $response->data());
     }
 
     /** @test */
@@ -97,6 +102,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $response = new Response($this->successResponse);
 
-        $this->assertInstanceOf(\Mirovit\IonicPlatformSDK\Response\ResponseError::class, $response->error());
+        $this->assertInstanceOf(ResponseError::class, $response->error());
     }
 }
