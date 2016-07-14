@@ -32,6 +32,11 @@ class TokensEndpoint extends Endpoint
         return $this->toResponse($response);
     }
 
+    /**
+     * @param $tokenId
+     * @param $status
+     * @return Response
+     */
     public function changeStatus($tokenId, $status)
     {
         $data = [
