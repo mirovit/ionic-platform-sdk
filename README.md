@@ -294,7 +294,7 @@ $sdk
 $sdk
     ->deploy()
     ->deploys()
-    ->all();
+    ->all('channel-uuid');
 
 // http://docs.ionic.io/docs/api-deploy#deploys-post
 $sdk

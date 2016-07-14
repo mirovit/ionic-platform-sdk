@@ -5,12 +5,10 @@ namespace Mirovit\IonicPlatformSDK\Tests\Endpoints;
 use Mirovit\IonicPlatformSDK\Endpoints\DeploysEndpoint;
 use Mirovit\IonicPlatformSDK\Response\Response;
 use Mirovit\IonicPlatformSDK\Tests\Endpoints\Traits\DeletesResource;
-use Mirovit\IonicPlatformSDK\Tests\Endpoints\Traits\ListsResource;
 
 class DeploysEndpointTest extends AbstractEndpointTest
 {
-    use DeletesResource,
-        ListsResource;
+    use DeletesResource;
 
     public function setUp()
     {
@@ -19,6 +17,31 @@ class DeploysEndpointTest extends AbstractEndpointTest
         $this->endpoint .= '/deploy';
         $this->resource = '/deploys';
         $this->endpointClass = DeploysEndpoint::class;
+    }
+
+    /** @test */
+    public function it_gets_a_list_of_deploys_for_a_channel()
+    {
+        $uuid = 'fake-channel-uuid';
+
+        $this->client
+            ->get("{$this->endpoint}{$this->resource}", [
+                'form_params'   => [
+                    'channel'   => $uuid
+                ]
+            ])
+            ->shouldBeCalled()
+            ->willReturn($this->successResponse->reveal());
+
+        $deploys = new DeploysEndpoint(
+            $this->client->reveal(),
+            $this->endpoint
+        );
+
+        $this->assertInstanceOf(
+            Response::class,
+            $deploys->all($uuid)
+        );
     }
 
     /** @test */
