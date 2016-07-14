@@ -26,10 +26,6 @@ Contributions are welcome, the only thing that is important for me is the expres
 
 This package uses a fluent syntax, so it is very easy to read and understand the underlying code.
 
-## What you can use
-
-Currently only the `users` endpoint is ready. The other will be coming soon : )
-
 ```php
 <?php
 
@@ -123,7 +119,7 @@ $sdk
 // http://docs.ionic.io/docs/api-users#users-delete
 $sdk
     ->users()
-    ->destroy('user-uuid');
+    ->delete('user-uuid');
 
 // http://docs.ionic.io/docs/api-users#users-custom-get
 $sdk
@@ -226,7 +222,7 @@ $sdk
 $sdk
     ->push()
     ->tokens()
-    ->destroy('token-uuid');
+    ->delete('token-uuid');
 
 ```
 
@@ -272,7 +268,7 @@ $sdk
 $sdk
     ->deploy()
     ->channels()
-    ->destroy('channel-uuid');
+    ->delete('channel-uuid');
 
 // http://docs.ionic.io/docs/api-deploy#snapshots-list
 $sdk
@@ -310,6 +306,6 @@ $sdk
 $sdk
     ->deploy()
     ->deploys()
-    ->destroy('deploy-uuid');
+    ->delete('deploy-uuid');
 ```
 
