@@ -49,11 +49,21 @@ class TokensEndpoint extends Endpoint
         return $this->toResponse($response);
     }
 
+    /**
+     * @param $tokenId
+     * @return Response
+     * @codeCoverageIgnore
+     */
     public function validate($tokenId)
     {
         return $this->changeStatus($tokenId, true);
     }
 
+    /**
+     * @param $tokenId
+     * @return Response
+     * @codeCoverageIgnore
+     */
     public function invalidate($tokenId)
     {
         return $this->changeStatus($tokenId, false);
