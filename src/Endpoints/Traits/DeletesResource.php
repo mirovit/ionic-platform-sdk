@@ -16,6 +16,6 @@ trait DeletesResource
     {
         $response = $this->client->delete("{$this->getEndpoint()}/{$uuid}");
 
-        return $this->toResponse($response);
+        return null;
     }
 }
