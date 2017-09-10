@@ -14,15 +14,14 @@ trait DeletesResource
         $this->client
             ->delete("{$this->endpoint}{$this->resource}/{$uuid}")
             ->shouldBeCalled()
-            ->willReturn($this->successResponse->reveal());
+            ->willReturn(null);
 
         $resource = new $this->endpointClass(
             $this->client->reveal(),
             $this->endpoint
         );
 
-        $this->assertInstanceOf(
-            Response::class,
+        $this->assertNull(
             $resource->delete($uuid)
         );
     }

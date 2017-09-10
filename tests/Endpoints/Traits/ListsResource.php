@@ -7,10 +7,12 @@ use Mirovit\IonicPlatformSDK\Response\Response;
 trait ListsResource
 {
     /** @test */
-    public function it_lists_a_resource_list()
+    public function it_lists_a_resource_list_with_empty_query()
     {
+        $query = ['query' => []];
+
         $this->client
-            ->get("{$this->endpoint}{$this->resource}")
+            ->get("{$this->endpoint}{$this->resource}", $query)
             ->shouldBeCalled()
             ->willReturn($this->successResponse->reveal());
 
