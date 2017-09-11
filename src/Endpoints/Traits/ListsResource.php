@@ -9,11 +9,14 @@ trait ListsResource
     /**
      * Get all from resource.
      *
+     * @param array $query query parameters of list request
      * @return Response
      */
-    public function all()
+    public function all(array $query = [])
     {
-        $response = $this->client->get($this->getEndpoint());
+        $response = $this->client->get($this->getEndpoint(), [
+            'query' => $query
+        ]);
 
         return $this->toResponse($response);
     }
